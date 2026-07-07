@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <title>Cursillo de Actualización Docente IV – SEDPEM</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* ── PDF EMBED ─────────────────────────────────────────── */
+    .pdf-section {
+      background: #111827;
+      border-radius: 18px;
+      overflow: hidden;
+      margin: 0 0 48px 0;
+      box-shadow: 0 8px 40px rgba(13,27,62,0.22);
+    }
+    .pdf-section-header {
+      padding: 18px 28px 14px;
+      border-bottom: 1px solid rgba(44,111,173,0.2);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .pdf-section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      flex: 1;
+    }
+    .pdf-section-badge {
+      background: rgba(44,111,173,0.2);
+      border: 1px solid rgba(91,130,176,0.4);
+      color: #93c5fd;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 999px;
+      letter-spacing: 0.05em;
+    }
+    .pdf-embed-wrap {
+      width: 100%;
+      height: 600px;
+      background: #1a2535;
+    }
+    .pdf-embed-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+    .pdf-fallback {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      gap: 14px;
+      color: rgba(255,255,255,0.6);
+      font-size: 14px;
+    }
+    .pdf-fallback a {
+      background: rgba(44,111,173,0.2);
+      border: 1px solid rgba(91,130,176,0.4);
+      color: #93c5fd;
+      padding: 8px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .pdf-fallback a:hover { background: rgba(44,111,173,0.4); }
+
+    /* ── COLUMNAS 3 MÓDULOS ─────────────────────────────── */
+    .tres-modulos-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(26,42,58,0.10);
+      margin-bottom: 48px;
+    }
+
+    .modulo-col {
+      display: flex;
+      flex-direction: column;
+      background: var(--white);
+    }
+    .modulo-col + .modulo-col {
+      border-left: 1px solid var(--border);
+    }
+
+    .modulo-col-header {
+      padding: 20px 22px 16px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      background: var(--white);
+    }
+    .modulo-col-header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--col-color, var(--accent));
+      border-radius: 0;
+    }
+    .modulo-col-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--col-color, var(--accent));
+      margin-bottom: 4px;
+    }
+    .modulo-col-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .modulo-col-title .col-icon { font-size: 20px; }
+
+    .modulo-col-body {
+      flex: 1;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* ── CARD DE ACTIVIDAD ─────────────────────────────── */
+    .act-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: all .2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .act-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--col-color, var(--accent));
+      border-radius: 3px 0 0 3px;
+    }
+    .act-card:hover {
+      box-shadow: 0 4px 18px rgba(26,42,58,0.13);
+      transform: translateY(-2px);
+      background: var(--white);
+    }
+    .act-card-num {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--col-color, var(--accent));
+    }
+    .act-card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.35;
+    }
+    .act-card-desc {
+      font-size: 12px;
+      color: var(--text2);
+      line-height: 1.5;
+    }
+    .act-card-arrow {
+      font-size: 14px;
+      color: var(--col-color, var(--accent));
+      align-self: flex-end;
+      transition: transform .2s;
+    }
+    .act-card:hover .act-card-arrow { transform: translateX(4px); }
+
+    /* ── COMING SOON CARD ───────────────────────────────── */
+    .act-card-soon {
+      background: var(--surface2);
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      opacity: 0.65;
+    }
+    .act-card-soon .act-card-num { color: var(--muted); }
+    .act-card-soon .act-card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    /* ── VIDEO SECTION ─────────────────────────────────── */
+    .video-index-section {
+      background: #111827;
+      border-radius: 18px;
+      overflow: hidden;
+      margin: 0 0 60px 0;
+      box-shadow: 0 8px 40px rgba(13,27,62,0.22);
+    }
+    .video-index-header {
+      padding: 22px 28px 16px;
+      border-bottom: 1px solid rgba(44,111,173,0.2);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .video-index-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      flex: 1;
+    }
+    .video-index-subtitle {
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .video-index-badge {
+      background: rgba(44,111,173,0.2);
+      border: 1px solid rgba(91,130,176,0.4);
+      color: #93c5fd;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 999px;
+      letter-spacing: 0.05em;
+    }
+    .video-index-progress {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 28px;
+      background: rgba(255,255,255,0.03);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .video-index-progress .progress-label { font-size: 12px; color: #5b82b0; font-weight: 500; }
+    .video-index-layout {
+      display: flex;
+      min-height: 520px;
+    }
+    .video-index-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #000;
+    }
+    .video-index-embed {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      background: #000;
+    }
+    .video-index-embed iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+    .video-index-embed .video-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #111827 0%, #1e3a5f 100%);
+      color: #fff;
+      gap: 14px;
+      cursor: pointer;
+    }
+    .video-index-embed .video-placeholder-icon {
+      width: 80px; height: 80px;
+      background: rgba(164,53,240,0.25);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 34px;
+      transition: background 0.2s, transform 0.2s;
+      border: 2px solid rgba(164,53,240,0.4);
+    }
+    .video-index-embed .video-placeholder:hover .video-placeholder-icon {
+      background: rgba(164,53,240,0.45);
+      transform: scale(1.08);
+    }
+    .video-index-embed .video-placeholder-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+    }
+    .video-index-embed .video-placeholder-sub {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+    }
+    .video-index-infobar {
+      background: #1a2535;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .video-index-sidebar {
+      width: 320px;
+      background: #1a2535;
+      border-left: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .sidebar-group-label {
+      padding: 12px 14px 6px;
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.35);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    @media (max-width: 900px) {
+      .tres-modulos-grid { grid-template-columns: 1fr; }
+      .modulo-col + .modulo-col { border-left: none; border-top: 1px solid var(--border); }
+      .video-index-layout { flex-direction: column; }
+      .video-index-sidebar { width: 100%; border-left: none; border-top: 1px solid rgba(255,255,255,0.08); }
+      .sidebar-list { max-height: 220px; }
+    }
+
+    /* ── BOTÓN AMPLIAR ─────────────────────────────────── */
+    .btn-expand {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(91,130,176,0.15);
+      border: 1px solid rgba(91,130,176,0.35);
+      color: #93c5fd;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 13px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+      letter-spacing: 0.03em;
+    }
+    .btn-expand:hover {
+      background: rgba(91,130,176,0.28);
+      border-color: rgba(91,130,176,0.6);
+    }
+    .btn-expand svg { flex-shrink: 0; }
+
+    /* ── MODAL ─────────────────────────────────────────── */
+    #video-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0,0,0,0.88);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    #video-modal.open { display: flex; }
+    #video-modal .modal-inner {
+      position: relative;
+      width: 100%;
+      max-width: 1100px;
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 80px rgba(0,0,0,0.7);
+    }
+    #video-modal .modal-ratio {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+    }
+    #video-modal iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+    #video-modal .modal-close {
+      position: absolute;
+      top: -38px;
+      right: 0;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      cursor: pointer;
+      line-height: 1;
+      opacity: 0.75;
+      transition: opacity 0.2s;
+    }
+    #video-modal .modal-close:hover { opacity: 1; }
+
+    /* ── MATERIAL COMPLEMENTARIO ───────────────────────── */
+    .material-comp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
+      gap: 20px;
+    }
+    .material-comp-label {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(184,134,11,0.1);
+      color: #b8860b;
+      border: 1px solid rgba(184,134,11,0.3);
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-bottom: 6px;
+    }
+
+    /* ── HERO overrides ──────────────────────────────── */
+    .hero {
+      background: #1a2a3a;
+      min-height: 580px;
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .hero-grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 52px 52px;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .hero-logos-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      padding: 22px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      z-index: 3;
+      flex-wrap: wrap;
+    }
+    .hero-logos-divider {
+      width: 1px;
+      height: 44px;
+      background: rgb(255,255,255);
+      flex-shrink: 0;
+    }
+    .hero-logo-img {
+      height: 96px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 1px 6px rgb(0,0,0));
+      opacity: 0.95;
+      transition: opacity .1s, transform .1s, filter .1s;
+      cursor: pointer;
+    }
+    .hero-logo-img:hover {
+      opacity: 1 !important;
+      transform: scale(1.12) translateY(-3px);
+      filter: drop-shadow(0 4px 18px rgb(255,255,255)) brightness(1.2);
+    }
+    .hero-logo-seminario { height: 50px; }
+    .hero-bg-numeral {
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      transform: translate(-50%, -60%);
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(125px, 30vw, 100px);
+      font-weight: 100;
+      color: rgba(223,219,245,0.121);
+      user-select: none;
+      pointer-events: none;
+      z-index: 2;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 140px 40px 68px;
+      text-align: center;
+    }
+    .hero-supertitle {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgb(255,255,255);
+      margin-bottom: 10px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(35px, 5vw, 58px);
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.13;
+      margin-bottom: 18px;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: rgb(200,218,240);
+    }
+    .hero-subtitle-line {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      color: rgb(255,255,255);
+      line-height: 1.78;
+      max-width: 560px;
+      margin: 0 auto 34px;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 36px;
+      flex-wrap: wrap;
+    }
+    .hero-stat { text-align: center; }
+    .hero-stat strong {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 35px;
+      font-weight: 700;
+      color: #c9a227;
+    }
+    .hero-stat span {
+      font-size: 10px;
+      font-weight: 700;
+      color: rgb(255,255,255);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .hero-badge { display: none; }
+    .hero-desc  { display: none; }
+
+    /* ══════════════════════════════════════════════════════
+       COLUMNAS LATERALES ANIMADAS — sube de abajo hacia arriba
+       La zona central (30%–70% del ancho) queda completamente libre
+       ══════════════════════════════════════════════════════ */
+
+    /* Contenedor de cada columna lateral */
+    .hero-lane {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 22%;          /* ancho de cada carril lateral */
+      pointer-events: none;
+      z-index: 2;
+      overflow: hidden;
+    }
+    .hero-lane.left  { left: 0; }
+    .hero-lane.right { right: 0; }
+
+    /* Gradiente que oculta los elementos al entrar/salir */
+    .hero-lane::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        #1a2a3a 0%,
+        transparent 18%,
+        transparent 80%,
+        #1a2a3a 100%
+      );
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    /* Cada ítem que sube */
+    .lane-item {
+      position: absolute;
+      font-family: 'Playfair Display', 'Georgia', serif;
+      font-weight: 400;
+      user-select: none;
+      will-change: transform, opacity;
+      animation: riseUp linear infinite;
+      /* opacity se maneja por el gradiente del lane */
+    }
+
+    /* Animación principal: sube desde abajo del hero hasta arriba y reaparece */
+    @keyframes riseUp {
+      0%   { transform: translateY(110%); }
+      100% { transform: translateY(-110%); }
+    }
+
+    /* ── SÍMBOLOS IZQUIERDA ───────────────────── */
+
+    /* ∫ integral */
+    .l-integral {
+      font-size: clamp(64px, 7vw, 100px);
+      color: rgba(201,162,39,0.20);
+      left: 18%;
+      bottom: -120px;
+      animation-duration: 14s;
+      animation-delay: 0s;
+    }
+    /* ∂ derivada parcial */
+    .l-partial {
+      font-size: clamp(44px, 5vw, 72px);
+      color: rgba(91,130,176,0.22);
+      left: 52%;
+      bottom: -80px;
+      animation-duration: 18s;
+      animation-delay: -5s;
+    }
+    /* lim */
+    .l-lim {
+      font-size: clamp(26px, 3vw, 42px);
+      color: rgba(164,53,240,0.20);
+      left: 8%;
+      bottom: -60px;
+      letter-spacing: 1px;
+      animation-duration: 22s;
+      animation-delay: -10s;
+    }
+    /* d/dx */
+    .l-ddx {
+      font-size: clamp(22px, 2.5vw, 36px);
+      color: rgba(255,255,255,0.13);
+      left: 60%;
+      bottom: -50px;
+      animation-duration: 16s;
+      animation-delay: -3s;
+    }
+    /* π */
+    .l-pi {
+      font-size: clamp(48px, 5.5vw, 80px);
+      color: rgba(44,111,173,0.18);
+      left: 30%;
+      bottom: -90px;
+      animation-duration: 20s;
+      animation-delay: -8s;
+    }
+    /* Curva SVG parábola pequeña */
+    .l-parabola {
+      left: 5%;
+      bottom: -180px;
+      width: clamp(80px, 10vw, 140px);
+      animation-duration: 24s;
+      animation-delay: -14s;
+      opacity: 0.18;
+    }
+    /* f'(x) texto */
+    .l-fprime {
+      font-size: clamp(18px, 2vw, 28px);
+      color: rgba(201,162,39,0.22);
+      left: 42%;
+      bottom: -40px;
+      font-style: italic;
+      animation-duration: 19s;
+      animation-delay: -1s;
+    }
+    /* Δx */
+    .l-deltax {
+      font-size: clamp(24px, 2.8vw, 40px);
+      color: rgba(164,53,240,0.16);
+      left: 70%;
+      bottom: -55px;
+      animation-duration: 15s;
+      animation-delay: -7s;
+    }
+
+    /* ── SÍMBOLOS DERECHA ─────────────────────── */
+
+    /* Σ sumatoria */
+    .r-sigma {
+      font-size: clamp(60px, 7vw, 96px);
+      color: rgba(91,130,176,0.20);
+      right: 20%;
+      left: unset;
+      animation-duration: 16s;
+      animation-delay: -2s;
+    }
+    /* ∇ nabla */
+    .r-nabla {
+      font-size: clamp(40px, 4.5vw, 68px);
+      color: rgba(44,111,173,0.18);
+      right: 55%;
+      left: unset;
+      animation-duration: 21s;
+      animation-delay: -9s;
+    }
+    /* ε (épsilon) */
+    .r-eps {
+      font-size: clamp(36px, 4vw, 60px);
+      color: rgba(201,162,39,0.17);
+      right: 10%;
+      left: unset;
+      animation-duration: 13s;
+      animation-delay: -4s;
+    }
+    /* dx */
+    .r-dx {
+      font-size: clamp(22px, 2.5vw, 36px);
+      color: rgba(255,255,255,0.12);
+      right: 40%;
+      left: unset;
+      animation-duration: 17s;
+      animation-delay: -11s;
+      font-style: italic;
+    }
+    /* Curva SVG senoidal pequeña */
+    .r-sine {
+      right: 4%;
+      left: unset;
+      bottom: -100px;
+      width: clamp(90px, 12vw, 160px);
+      animation-duration: 20s;
+      animation-delay: -6s;
+      opacity: 0.15;
+    }
+    /* ∞ infinito */
+    .r-inf {
+      font-size: clamp(30px, 3.5vw, 52px);
+      color: rgba(164,53,240,0.18);
+      right: 65%;
+      left: unset;
+      animation-duration: 25s;
+      animation-delay: -16s;
+    }
+    /* Curva SVG tangente/ejes */
+    .r-axes {
+      right: 12%;
+      left: unset;
+      bottom: -220px;
+      width: clamp(70px, 9vw, 120px);
+      animation-duration: 28s;
+      animation-delay: -18s;
+      opacity: 0.14;
+    }
+    /* θ theta */
+    .r-theta {
+      font-size: clamp(32px, 3.8vw, 56px);
+      color: rgba(91,130,176,0.16);
+      right: 30%;
+      left: unset;
+      animation-duration: 19s;
+      animation-delay: -3s;
+    }
+
+    /* ── SEPARADOR VISUAL ─────────────────────────────── */
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 28px 56px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="header-title">
+        Cursillo de Actualización Docente
+        <span>IV SEDPEM · UBB</span>
+      </a>
+      <img src="logo_ubb.png" alt="Universidad del Bío-Bío" class="hero-logo-img" style="height:75px;">
+      <img src="logo_seminario.png" alt="SEDPEM" class="hero-logo-img hero-logo-seminario" style="height:75px;">
+      <img src="logo_cmm.png" alt="CMM 25 años" class="hero-logo-img" style="height:75px;">
+      <nav class="header-nav">
+        <a href="#apuntes">Apuntes</a>
+        <a href="#videos">Videos</a>
+        <a href="#modulos">Módulos</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO PORTADA -->
+  <section class="hero">
+
+    <!-- CARRIL IZQUIERDO — sube de abajo hacia arriba -->
+    <div class="hero-lane left">
+      <div class="lane-item l-integral">&#x222B;</div>
+      <div class="lane-item l-partial">&#x2202;</div>
+      <div class="lane-item l-lim">lim</div>
+      <div class="lane-item l-ddx">d/dx</div>
+      <div class="lane-item l-pi">&#x3C0;</div>
+      <div class="lane-item l-fprime">f&#x2032;(x)</div>
+      <div class="lane-item l-deltax">&#x394;x</div>
+      <!-- Parábola SVG pequeña -->
+      <svg class="lane-item l-parabola" viewBox="0 0 140 130" xmlns="http://www.w3.org/2000/svg">
+        <line x1="14" y1="6" x2="14" y2="118" stroke="#93c5fd" stroke-width="1.4"/>
+        <line x1="6" y1="110" x2="130" y2="110" stroke="#93c5fd" stroke-width="1.4"/>
+        <polyline points="10,13 14,5 18,13" fill="none" stroke="#93c5fd" stroke-width="1.4"/>
+        <polyline points="123,104 131,110 123,116" fill="none" stroke="#93c5fd" stroke-width="1.4"/>
+        <path d="M14,110 Q72,10 130,110" fill="none" stroke="#c9a227" stroke-width="2"/>
+        <text x="82" y="42" font-family="Georgia,serif" font-size="13" fill="#c9a227" font-style="italic">x&#xB2;</text>
+      </svg>
+    </div>
+
+    <!-- CARRIL DERECHO — sube de abajo hacia arriba -->
+    <div class="hero-lane right">
+      <div class="lane-item r-sigma">&#x3A3;</div>
+      <div class="lane-item r-nabla">&#x2207;</div>
+      <div class="lane-item r-eps">&#x3B5;</div>
+      <div class="lane-item r-dx">dx</div>
+      <div class="lane-item r-inf">&#x221E;</div>
+      <div class="lane-item r-theta">&#x3B8;</div>
+      <!-- Senoidal SVG pequeña -->
+      <svg class="lane-item r-sine" viewBox="0 0 160 70" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,35 C20,5 40,65 80,35 C100,20 120,50 160,35"
+              fill="none" stroke="#c9a227" stroke-width="2" stroke-linecap="round"/>
+        <text x="60" y="62" font-family="Georgia,serif" font-size="11" fill="#c9a227" font-style="italic">sin(x)</text>
+      </svg>
+      <!-- Ejes SVG pequeños con tangente -->
+      <svg class="lane-item r-axes" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <line x1="12" y1="6" x2="12" y2="108" stroke="#93c5fd" stroke-width="1.4"/>
+        <line x1="6" y1="100" x2="112" y2="100" stroke="#93c5fd" stroke-width="1.4"/>
+        <polyline points="8,13 12,5 16,13" fill="none" stroke="#93c5fd" stroke-width="1.4"/>
+        <polyline points="105,94 113,100 105,106" fill="none" stroke="#93c5fd" stroke-width="1.4"/>
+        <path d="M12,100 Q45,20 80,55 Q95,68 112,30" fill="none" stroke="#a855f7" stroke-width="2"/>
+      </svg>
+    </div>
+
+    <!-- La integral MathJax ya no va en el hero — zona central LIMPIA -->
+    <div class="hero-bg-numeral"><p style="text-align:center;">\[\int_a^b f(x)\,dx\]</p></div>
+    <div class="hero-content">
+      <h1><br>Cursillo de Actualización Docente 💡<br></h1>
+      <p class="hero-subtitle-line">Curso de formación para docentes orientado al diseño, creación e implementación de recursos educativos digitales e impresos de alta calidad.</p>
+      <div class="hero-stats">
+        <div class="hero-stat"><strong>3</strong><span>Temas</span></div>
+        <div class="hero-stat"><strong>3</strong><span>Actividades</span></div>
+        <div class="hero-stat"><strong>Libre</strong><span>Acceso</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ APUNTES PDF ═══════════════ -->
+  <main class="modulos-section" id="apuntes">
+    <p class="section-label">Recursos del cursillo</p>
+    <h2 class="section-titulo">📄 Apuntes del Cursillo</h2>
+
+    <div class="pdf-section">
+      <div class="pdf-section-header">
+        <div>
+          <div class="pdf-section-title">📘 ApuntesCursillo.pdf</div>
+          <div class="video-index-subtitle">Material de referencia · Lectura complementaria</div>
+        </div>
+        <a href="ApuntesCursillo.pdf" target="_blank" class="pdf-section-badge" style="text-decoration:none;cursor:pointer;">
+          ↗ Abrir en nueva pestaña
+        </a>
+      </div>
+      <div class="pdf-embed-wrap">
+        <iframe
+          src="ApuntesCursillo.pdf#toolbar=1&navpanes=0&scrollbar=1"
+          title="Apuntes del Cursillo"
+          loading="lazy">
+        </iframe>
+      </div>
+    </div>
+  </main>
+
+  <!-- ═══════════════ TRES MÓDULOS EN COLUMNAS ═══════════════ -->
+  <main class="modulos-section" id="modulos" style="padding-top:0;">
+    <p class="section-label">Contenidos principales</p>
+    <h2 class="section-titulo">Actividades por tema</h2>
+
+    <div class="tres-modulos-grid">
+
+      <!-- ── COLUMNA LÍMITES ── -->
+      <div class="modulo-col" style="--col-color:#1e6fd9;">
+        <div class="modulo-col-header">
+          <div class="modulo-col-label">Módulo 01</div>
+          <div class="modulo-col-title">
+            <span class="col-icon">∞</span>
+            Límites
+          </div>
+        </div>
+        <div class="modulo-col-body">
+
+          <a href="modulos/LIMITES/LIM-ACT-01/index.html" class="act-card" style="--col-color:#1e6fd9;">
+            <div class="act-card-num">Actividad 01</div>
+            <div class="act-card-title">Límite que se puede evaluar directamente</div>
+            <div class="act-card-desc">Exploración tabular y gráfica del concepto de límite. Evaluación directa y análisis de comportamiento.</div>
+            <div class="act-card-arrow">→</div>
+          </a>
+
+          <a href="modulos/LIMITES/LIM-ACT-05/index.html" class="act-card" style="--col-color:#1e6fd9;">
+            <div class="act-card-num">Actividad 05</div>
+            <div class="act-card-title">Límite infinito y asintota vertical</div>
+            <div class="act-card-desc">Exploración tabular y gráfica del concepto de límite. Evaluación directa y análisis de comportamiento.</div>
+            <div class="act-card-arrow">→</div>
+          </a>
+
+        </div>
+      </div>
+
+      <!-- ── COLUMNA DERIVADAS ── -->
+      <div class="modulo-col" style="--col-color:#0f6e56;">
+        <div class="modulo-col-header">
+          <div class="modulo-col-label">Módulo 02</div>
+          <div class="modulo-col-title">
+            <span class="col-icon">∂</span>
+            Derivadas
+          </div>
+        </div>
+        <div class="modulo-col-body">
+
+          <a href="modulos/DERIVADAS/DEV-ACT-14/index.html" class="act-card" style="--col-color:#0f6e56;">
+            <div class="act-card-num">Actividad 14</div>
+            <div class="act-card-title">El cerco más eficiente</div>
+            <div class="act-card-desc">Optimización aplicada mediante derivadas. Problema de maximización de área con restricción de perímetro.</div>
+            <div class="act-card-arrow">→</div>
+          </a>
+
+          <div class="act-card-soon" style="--col-color:#0f6e56;">
+            <div class="act-card-num" style="color:var(--muted);">Próximamente</div>
+            <div class="act-card-title">Más actividades en preparación…</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── COLUMNA INTEGRALES ── -->
+      <div class="modulo-col" style="--col-color:#993c1d;">
+        <div class="modulo-col-header">
+          <div class="modulo-col-label">Módulo 03</div>
+          <div class="modulo-col-title">
+            <span class="col-icon">∫</span>
+            Integrales
+          </div>
+        </div>
+        <div class="modulo-col-body">
+
+          <a href="modulos/INTEGRALES/INT-ACT-20/index.html" class="act-card" style="--col-color:#993c1d;">
+            <div class="act-card-num">Actividad 20</div>
+            <div class="act-card-title">Acumulación de distancia con velocidad constante</div>
+            <div class="act-card-desc">Introducción a la integral definida mediante el concepto de acumulación. Interpretación geométrica y analítica.</div>
+            <div class="act-card-arrow">→</div>
+          </a>
+
+          <div class="act-card-soon" style="--col-color:#993c1d;">
+            <div class="act-card-num" style="color:var(--muted);">Próximamente</div>
+            <div class="act-card-title">Más actividades en preparación…</div>
+          </div>
+
+        </div>
+      </div>
+
+    </div><!-- /tres-modulos-grid -->
+  </main>
+
+  <!-- ═══════════════ VIDEOS EXPLICATIVOS ═══════════════ -->
+  <main class="modulos-section" id="videos" style="padding-top:0;">
+    <p class="section-label">Antes de comenzar</p>
+    <h2 class="section-titulo">Videos explicativos del curso</h2>
+
+    <div class="video-index-section">
+      <div class="video-index-header">
+        <div>
+          <div class="video-index-title">🎬 Cápsulas introductorias</div>
+          <div class="video-index-subtitle">Visión general · Metodología · Herramientas</div>
+        </div>
+        <span class="video-index-badge">7 videos</span>
+      </div>
+
+      <div class="video-index-progress">
+        <span class="progress-label">Progreso</span>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="fill-idx" style="width:0%"></div>
+        </div>
+        <span class="progress-count" id="count-idx">0 / 7</span>
+      </div>
+
+      <div class="video-index-layout">
+        <div class="video-index-main">
+          <div class="video-index-embed">
+            <div class="video-placeholder" id="placeholder-idx" onclick="playIndexVideo(0)">
+              <div class="video-placeholder-icon">▶</div>
+              <div class="video-placeholder-title">Comienza aquí</div>
+              <div class="video-placeholder-sub">Haz clic para reproducir el primer video</div>
+            </div>
+            <iframe id="player-idx" src="" allowfullscreen allow="autoplay; fullscreen" loading="lazy" title="Video introductorio" style="display:none;"></iframe>
+          </div>
+          <div class="video-index-infobar">
+            <span class="video-info-title" id="title-idx">Selecciona un video para comenzar</span>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span class="video-info-meta" id="meta-idx"></span>
+              <button class="btn-expand" id="btn-expand" onclick="openModal()" style="display:none;" title="Ver en pantalla grande">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+                Ampliar
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-index-sidebar">
+          <div class="sidebar-group-label">Módulo 01</div>
+          <div class="sidebar-list" id="list-idx">
+            <div class="video-item" onclick="playIndexVideo(0)" data-index="0">
+              <div class="item-check" id="check-idx-0"></div>
+              <div class="item-info">
+                <div class="item-title">Introducción al curso</div>
+                <div class="item-now-playing">▶ Reproduciendo</div>
+                <div class="item-duration">⏱ 11:49</div>
+              </div>
+            </div>
+            <div class="video-item" onclick="playIndexVideo(1)" data-index="1">
+              <div class="item-check" id="check-idx-1"></div>
+              <div class="item-info">
+                <div class="item-title">Instalación de Programas</div>
+                <div class="item-now-playing">▶ Reproduciendo</div>
+                <div class="item-duration">⏱ 09:28</div>
+              </div>
+            </div>
+            <div class="video-item" onclick="playIndexVideo(2)" data-index="2">
+              <div class="item-check" id="check-idx-2"></div>
+              <div class="item-info">
+                <div class="item-title">Resumen de SO1</div>
+                <div class="item-now-playing">▶ Reproduciendo</div>
+                <div class="item-duration">⏱ 10:16</div>
+              </div>
+            </div>
+            <div class="sidebar-group-label" style="margin-top:4px;">Módulo 02</div>
+            <div class="video-item" onclick="playIndexVideo(3)" data-index="3">
+              <div class="item-check" id="check-idx-3"></div>
+              <div class="item-info">
+                <div class="item-title">Análisis y Creación de OA</div>
+                <div class="item-now-playing">▶ Reproduciendo</div>
+                <div class="item-duration">⏱ 14:43</div>
+              </div>
+            </div>
+            <div class="video-item" onclick="playIndexVideo(4)" data-index="4">
+              <div class="item-check" id="check-idx-4"></div>
+              <div class="item-info">
+                <div class="item-title">Elaboración de Planificación</div>
+                <div class="item-now-playing">▶ Reproduciendo</div>
+                <div class="item-duration">⏱ 48:52</div>
+              </div>
+            </div>
+            <div class="sidebar-group-label" style="margin-top:4px;">Módulo 03</div>
+            <div class="video-item" onclick="playIndexVideo(5)" data-index="5">
+              <div class="item-check" id="check-idx-5"></div>
+              <div class="item-info">
+                <div class="item-title">Elaboración de guía en LaTeX</div>
+                <div class="item-now-playing">▶ Reproduciendo</div>
+                <div class="item-duration">⏱ 44:42</div>
+              </div>
+            </div>
+            <div class="video-item" onclick="playIndexVideo(6)" data-index="6">
+              <div class="item-check" id="check-idx-6"></div>
+              <div class="item-info">
+                <div class="item-title">Elaboración de página HTML</div>
+                <div class="item-now-playing">▶ Reproduciendo</div>
+                <div class="item-duration">⏱ 34:34</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ═══════════════ MATERIAL COMPLEMENTARIO ═══════════════ -->
+  <main class="modulos-section" id="material-complementario" style="padding-top:0;">
+    <p class="section-label">Material complementario</p>
+    <h2 class="section-titulo">📁 Módulos anteriores del cursillo</h2>
+    <p style="font-size:14px;color:var(--text2);margin-bottom:28px;line-height:1.6;">
+      Recursos de apoyo de las sesiones originales: instalación de herramientas, planificación en LaTeX y creación de guías HTML con IA.
+    </p>
+
+    <div class="material-comp-grid">
+
+      <a href="modulos/modulo-01.html" class="modulo-card" style="--card-color:#607d8b;--card-bg:#eceff1;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="modulo-icon" style="background:#eceff1;">📂</div>
+          <span class="modulo-num">Módulo 01 · Original</span>
+        </div>
+        <span class="material-comp-label">Complementario</span>
+        <h3>Introducción y <strong>configuración de herramientas</strong></h3>
+        <p class="modulo-desc">Diagnóstico inicial, instalación de Claude, VS Code y Python. Repaso de la primera Sesión Orientativa.</p>
+        <span class="modulo-tag" style="background:#eceff1;color:#607d8b;">Claude AI · VS Code · Python</span>
+        <span class="modulo-arrow" style="color:#607d8b;">→</span>
+      </a>
+
+      <a href="modulos/modulo-02.html" class="modulo-card" style="--card-color:#607d8b;--card-bg:#eceff1;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="modulo-icon" style="background:#eceff1;">📄</div>
+          <span class="modulo-num">Módulo 02 · Original</span>
+        </div>
+        <span class="material-comp-label">Complementario</span>
+        <h3>Planificación del EID en <strong>LaTeX</strong></h3>
+        <p class="modulo-desc">Análisis del objetivo Mineduc y creación de planificación profesional en .tex con plantilla del profe.</p>
+        <span class="modulo-tag" style="background:#eceff1;color:#607d8b;">LaTeX · EID · Mineduc</span>
+        <span class="modulo-arrow" style="color:#607d8b;">→</span>
+      </a>
+
+      <a href="modulos/modulo-03.html" class="modulo-card" style="--card-color:#607d8b;--card-bg:#eceff1;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="modulo-icon" style="background:#eceff1;">💻</div>
+          <span class="modulo-num">Módulo 03 · Original</span>
+        </div>
+        <span class="material-comp-label">Complementario</span>
+        <h3>Guías EDO con IA: <strong>.tex y HTML pro</strong></h3>
+        <p class="modulo-desc">Creación de guía en LaTeX, exportación a HTML, potenciación con Claude AI y publicación en GitHub Pages.</p>
+        <span class="modulo-tag" style="background:#eceff1;color:#607d8b;">Claude AI · LaTeX · HTML · GitHub</span>
+        <span class="modulo-arrow" style="color:#607d8b;">→</span>
+      </a>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <strong>Cursillo de Actualización IV · SEDPEM</strong> &nbsp;·&nbsp; Curso de formación docente · Acceso libre
+  </footer>
+
+  <!-- MODAL LIGHTBOX -->
+  <div id="video-modal" onclick="closeModalOutside(event)">
+    <div class="modal-inner">
+      <button class="modal-close" onclick="closeModal()" title="Cerrar">✕</button>
+      <div class="modal-ratio">
+        <iframe id="modal-player" src="" allowfullscreen allow="autoplay; fullscreen"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const indexVideos = [
+      { id: 'JniFHW1tF-E', title: 'Introducción al curso',         duration: '11:49' },
+      { id: 'JF8E3cqf3sE', title: 'Instalación de Programas',      duration: '09:28' },
+      { id: 'ERbNBIWKkyA', title: 'Resumen de SO1',                 duration: '10:16' },
+      { id: '_qHDtHz2JEI', title: 'Análisis y Creación de OA',      duration: '14:43' },
+      { id: '1BMY_ncpkQI', title: 'Elaboración de Planificación',   duration: '48:52' },
+      { id: 'WoL3wBPfWrM', title: 'Elaboración de guía en LaTeX',   duration: '44:42' },
+      { id: 'Hee_c6CuVTw', title: 'Elaboración de página HTML',     duration: '34:34' },
+    ];
+
+    const watchedIdx = new Set();
+
+    function playIndexVideo(index) {
+      const v = indexVideos[index];
+      const placeholder = document.getElementById('placeholder-idx');
+      const player = document.getElementById('player-idx');
+      placeholder.style.display = 'none';
+      player.style.display = 'block';
+      player.src = 'https://www.youtube.com/embed/' + v.id + '?autoplay=1&rel=0&fs=1';
+      document.getElementById('title-idx').textContent = v.title;
+      document.getElementById('meta-idx').textContent  = v.duration;
+      const btnExpand = document.getElementById('btn-expand');
+      btnExpand.style.display = 'inline-flex';
+      btnExpand.dataset.videoId = v.id;
+      document.querySelectorAll('#list-idx .video-item').forEach((item, i) => {
+        item.classList.toggle('active', i === index);
+      });
+      watchedIdx.add(index);
+      const total = indexVideos.length;
+      const done  = watchedIdx.size;
+      document.getElementById('fill-idx').style.width  = Math.round((done/total)*100) + '%';
+      document.getElementById('count-idx').textContent = done + ' / ' + total;
+      watchedIdx.forEach(i => {
+        const check = document.getElementById('check-idx-' + i);
+        if (check) {
+          check.style.background  = '#5624d0';
+          check.style.borderColor = '#5624d0';
+          check.textContent       = '✓';
+          check.closest('.video-item').classList.add('completed');
+        }
+      });
+    }
+
+    function openModal() {
+      const videoId = document.getElementById('btn-expand').dataset.videoId;
+      if (!videoId) return;
+      document.getElementById('modal-player').src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0&fs=1';
+      document.getElementById('video-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('video-modal').classList.remove('open');
+      document.getElementById('modal-player').src = '';
+      document.body.style.overflow = '';
+    }
+
+    function closeModalOutside(e) {
+      if (e.target === document.getElementById('video-modal')) closeModal();
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
+
+</body>
+</html>
